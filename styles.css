@@ -26,6 +26,20 @@ body {
   border-radius: 20%;
 }
 
+.btn-small {
+  position: absolute;
+  left: 45.5%;
+  top: 43.5%;
+  height: 50px;
+  width: 50px;
+  border: 10px solid black;
+  border-radius: 100%;
+}
+
+.btn-container {
+  position: relative;
+}
+
 .game-over {
   background-color: red;
   opacity: 0.8;
@@ -33,18 +47,26 @@ body {
 
 .red {
   background-color: red;
+  border-top-right-radius: 100%;
 }
 
 .green {
   background-color: green;
+  border-top-left-radius: 100%;
 }
 
 .blue {
   background-color: blue;
+  border-bottom-right-radius: 100%;
 }
 
 .yellow {
   background-color: yellow;
+  border-bottom-left-radius: 100%;
+}
+
+.start {
+  background-color: white;
 }
 
 .pressed {

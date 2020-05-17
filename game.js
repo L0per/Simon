@@ -8,9 +8,14 @@ var levelCount = 0;
 
 var clickCount = 0;
 
+var currentlyPlaying = false;
+
 // Detect button press to start
-$(document).keydown(() => {
-    if (gamePattern.length < 1) {
+$(".btn-small").click(() => {
+    if (currentlyPlaying === false) {
+        currentlyPlaying = true;
+        $('body').css('background-color', '#011F3F');
+        animatePress("start");
         $("h1").text("Level 0");
         setTimeout(() => gameSequence(), 500);
     }
@@ -45,37 +50,37 @@ function gameSequence() {
 // User sequence input
 $(".btn").click((e) => {
 
-    console.log("click")
+    if (currentlyPlaying === true) {
 
-    // Capture user click color
-    let userChosenColor = e.target.id;
-    userClickedPattern.push(userChosenColor);
-    playSound(userChosenColor);
-    animatePress(userChosenColor);
+        // Capture user click color
+        let userChosenColor = e.target.id;
+        userClickedPattern.push(userChosenColor);
+        playSound(userChosenColor);
+        animatePress(userChosenColor);
+        
+        if (userClickedPattern[clickCount] !== gamePattern[clickCount]) {
+            gameOver();
+        } else if (userClickedPattern.length === gamePattern.length) {
+            // Reset click count and user pattern
+            userClickedPattern = [];
+            clickCount = 0;
+            setTimeout(() => gameSequence(), 1000);
+        } else {
+            // Increment click count
+            clickCount += 1;
+            console.log(clickCount)
+        }
 
-    console.log(clickCount)
-    console.log(userClickedPattern)
-    console.log(gamePattern)
-
-    
-    if (userClickedPattern[clickCount] !== gamePattern[clickCount]) {
-        gameOver();
-    } else if (userClickedPattern.length === gamePattern.length) {
-        // Reset click count and user pattern
-        userClickedPattern = [];
-        clickCount = 0;
-        setTimeout(() => gameSequence(), 1000);
-    } else {
-        // Increment click count
-        clickCount += 1;
-        console.log(clickCount)
     }
+
 
 })
 
 // Gameover and reset
 function gameOver() {
-    $("h1").text("Game Over! Press A Key to Reset.")
+    currentlyPlaying = false;
+    $("h1").text("Game Over! White Button to Reset.");
+    $("body").css("background-color", "red");
     createjs.Sound.play("gameover");
     gamePattern =[];
     userClickedPattern = [];
