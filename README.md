@@ -1,2 +1,2 @@
 # Simon
-Simon game.
+Play the game [HERE](https://l0per.github.io/Simon/)
